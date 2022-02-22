@@ -23,7 +23,7 @@ public class Folder {
     private List<Files> files;
 
     @ManyToOne
-    @JoinColumn(name = "folder_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnoreProperties({"folders"})
     private User user;
 
