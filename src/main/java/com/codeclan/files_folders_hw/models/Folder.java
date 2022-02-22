@@ -1,14 +1,30 @@
 package com.codeclan.files_folders_hw.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "folders")
 public class Folder {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @OneToMany(mappedBy = "folder", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"folder"})
     private List<Files> files;
+
+    @ManyToOne
+    @JoinColumn(name = "folder_id", nullable = false)
+    @JsonIgnoreProperties({"folders"})
     private User user;
 
     public Folder(String title, User user) {
